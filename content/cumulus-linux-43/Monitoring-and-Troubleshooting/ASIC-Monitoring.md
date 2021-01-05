@@ -24,7 +24,7 @@ ASIC monitoring is currently supported on switches with {{<exlink url="https://c
 
 {{%/notice%}}
 
-## Collecting Queue Lengths in Histograms
+## Collect Queue Lengths in Histograms
 
 The Mellanox Spectrum ASIC provides a mechanism to measure and report egress queue lengths in histograms (a graphical representation of data, which is divided into intervals or bins). You can configure the ASIC to measure up to 64 egress queues. Each queue is reported through a histogram with 10 bins, where each bin represents a range of queue lengths.
 

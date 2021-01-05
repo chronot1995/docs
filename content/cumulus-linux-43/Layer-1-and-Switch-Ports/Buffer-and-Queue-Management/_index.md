@@ -559,7 +559,89 @@ Always run the {{<link url="#syntax-checker" text="syntax checker">}} syntax che
 
 ## Interface Buffer Status
 
-On switches with {{<exlink url="https://cumulusnetworks.com/products/hardware-compatibility-list/?asic%5B0%5D=Mellanox%20Spectrum&asic%5B1%5D=Mellanox%20Spectrum_A1" text="ASICs">}}, you can collect a fine-grained history of queue lengths using histograms maintained by the ASIC; see the {{<link title="ASIC Monitoring">}} for details.
+On switches with {{<exlink url="https://cumulusnetworks.com/products/hardware-compatibility-list/?asic%5B0%5D=Mellanox%20Spectrum&asic%5B1%5D=Mellanox%20Spectrum_A1" text="ASICs">}}, you can collect a fine-grained history of queue lengths using histograms maintained by the ASIC; see {{<link title="ASIC Monitoring">}} for details.
+
+## Interface Buffer Usage
+
+On a Mellanox Spectrum 1, 2 or 3 switch, you can get the usage details for various buffer regions as well as their limits and pool mappings. Use the Mellanox `mlxcmd buffers port_reserved counters --port_id` command.
+
+```
+cumulus@switch:~$ sudo mlxcmd buffers port_reserved counters --port_id swp1s0
+Reserved + shared buffer counters for port swp1s0
+Region                         PoolID  PoolMode    PG-Id    Lossy/Lossless    XON Th    XOFF Th    TC    HR    Reserved Size    Shared_Max      Current Usage    Max Usage                          
+---------------------------  --------  ----------  -------  ----------------  --------  ---------  ----  ----  ---------------  ------------  ---------------  -----------                          
+INGRESS_PORT                        0  DYNAMIC     -        -                 -         -          -     -     71               ALPHA_1                     0            0                         
+INGRESS_PORT                        1  DYNAMIC     -        -                 -         -          -     -     71               ALPHA_8                     0            0                         
+INGRESS_PORT                        2  DYNAMIC     -        -                 -         -          -     -     71               ALPHA_8                     0            0                         
+INGRESS_PORT                        3  STATIC      -        -                 -         -          -     -     0                0                           0            0                         
+INGRESS_PORT                        4  STATIC      -        -                 -         -          -     -     0                0                           0            0                         
+INGRESS_PORT                        5  STATIC      -        -                 -         -          -     -     0                0                           0            0                         
+INGRESS_PORT                        6  STATIC      -        -                 -         -          -     -     0                0                           0            0                         
+INGRESS_PORT                        7  STATIC      -        -                 -         -          -     -     0                0                           0            0                         
+INGRESS_PORT_PRIORITY_GROUP         0  DYNAMIC     0        Lossless          55        69         -     242   -                ALPHA_1                     0            0                         
+INGRESS_PORT_PRIORITY_GROUP         2  DYNAMIC     1        Lossy             0         0          -     142   0                ALPHA_8                     0            0                         
+INGRESS_PORT_PRIORITY_GROUP         2  DYNAMIC     2        Lossy             0         0          -     142   0                ALPHA_8                     0            0                         
+INGRESS_PORT_PRIORITY_GROUP         2  DYNAMIC     3        Lossy             0         0          -     142   0                ALPHA_8                     0            0                         
+INGRESS_PORT_PRIORITY_GROUP         2  DYNAMIC     4        Lossy             0         0          -     142   0                ALPHA_8                     0            0                         
+INGRESS_PORT_PRIORITY_GROUP         2  DYNAMIC     5        Lossy             0         0          -     142   0                ALPHA_8                     0            0                         
+INGRESS_PORT_PRIORITY_GROUP         2  DYNAMIC     6        Lossy             0         0          -     142   0                ALPHA_8                     0            0                         
+INGRESS_PORT_PRIORITY_GROUP         2  DYNAMIC     7        Lossy             0         0          -     142   0                ALPHA_8                     0            0                         
+EGRESS_PORT                        11  DYNAMIC     -        -                 -         -          -     -     0                ALPHA_0                     0            3                         
+EGRESS_PORT                        12  DYNAMIC     -        -                 -         -          -     -     71               ALPHA_8                     0            0                         
+EGRESS_PORT                        13  DYNAMIC     -        -                 -         -          -     -     71               ALPHA_8                     0            0                         
+EGRESS_PORT                        14  STATIC      -        -                 -         -          -     -     0                0                           0            0                         
+EGRESS_PORT                        15  STATIC      -        -                 -         -          -     -     0                0                           0            0                         
+EGRESS_PORT                        16  STATIC      -        -                 -         -          -     -     0                0                           0            0                         
+EGRESS_PORT                        17  STATIC      -        -                 -         -          -     -     0                0                           0            0                         
+EGRESS_PORT                        18  STATIC      -        -                 -         -          -     -     0                0                           0            0                         
+EGRESS_PORT_TRAFFIC_CLASS          13  DYNAMIC     -        -                 -         -          0     -     35               ALPHA_8                     0            0                         
+EGRESS_PORT_TRAFFIC_CLASS          13  DYNAMIC     -        -                 -         -          1     -     35               ALPHA_8                     0            0                         
+EGRESS_PORT_TRAFFIC_CLASS          13  DYNAMIC     -        -                 -         -          2     -     35               ALPHA_8                     0            0                         
+EGRESS_PORT_TRAFFIC_CLASS          13  DYNAMIC     -        -                 -         -          3     -     35               ALPHA_8                     0            0                         
+EGRESS_PORT_TRAFFIC_CLASS          13  DYNAMIC     -        -                 -         -          4     -     35               ALPHA_8                     0            0                         
+EGRESS_PORT_TRAFFIC_CLASS          13  DYNAMIC     -        -                 -         -          5     -     35               ALPHA_8                     0            0                         
+EGRESS_PORT_TRAFFIC_CLASS          13  DYNAMIC     -        -                 -         -          6     -     35               ALPHA_8                     0            0                         
+EGRESS_PORT_TRAFFIC_CLASS          13  DYNAMIC     -        -                 -         -          7     -     35               ALPHA_8                     0            0                         
+MULTICAST_PORT                     10  DYNAMIC     -        -                 -         -          -     -     71               ALPHA_8                     0            0                         
+Reserved + shared buffer counters for port 0xfffff1f
+Region     PoolID    PoolMode      SP  Reserved Size    Shared_Max      Current Usage    Max Usage
+---------  --------  ----------  ----  ---------------  ------------  ---------------  -----------
+MULTICAST  13        DYNAMIC        0  70               ALPHA_8                     0            3
+MULTICAST  13        DYNAMIC        1  70               ALPHA_8                     0            0
+MULTICAST  13        DYNAMIC        2  70               ALPHA_8                     0            0
+MULTICAST  13        DYNAMIC        3  70               ALPHA_8                     0            0
+MULTICAST  13        DYNAMIC        4  70               ALPHA_8                     0            0
+MULTICAST  13        DYNAMIC        5  70               ALPHA_8                     0            0
+MULTICAST  13        DYNAMIC        6  70               ALPHA_8                     0            0
+MULTICAST  13        DYNAMIC        7  70               ALPHA_8                     0            2
+MULTICAST  11        DYNAMIC        8  0                ALPHA_0                     0            0
+MULTICAST  11        DYNAMIC        9  0                ALPHA_0                     0            0                                                                                                 
+MULTICAST  11        DYNAMIC       10  0                ALPHA_0                     0            0                                                                                                 
+MULTICAST  11        DYNAMIC       11  0                ALPHA_0                     0            0                                                                                                 
+MULTICAST  11        DYNAMIC       12  0                ALPHA_0                     0            0                                                                                                 
+MULTICAST  11        DYNAMIC       13  0                ALPHA_0                     0            0                                                                                                 
+MULTICAST  11        DYNAMIC       14  0                ALPHA_0                     0            0                                                                                                 
+MULTICAST  -         -             15  -                -                           0            0
+```
+
+The table headings are defined as follows:
+
+| Heading | Description |
+| ------- | ----------- |
+| Region | Can be one of ingress port port group, egress port traffic class, ingress port, egress port, muluticast egress port, or multicast port switch priority. |
+| PoolID | The pool ID to which the regions are mapped. |
+| PoolMode | Dynamic or static pool mode. This governs the usage of the region mapped to it.
+| PG-Id | The priority group ID for the ingress port priority group region. |
+| Lossy/Lossless | This is valid only for the ingress port priority group region. *Lossless* is displayed when priority flow control (PFC) is enabled. |
+| XON Th | The XON threshold value, which is valid only for the ingress port priority group region. |
+| XOFF Th | The XOFF threshold value, which is valid only for a lossless ingress port priority group region. |
+| TC | The traffic class, which corresponds to egress port traffic class region. |
+| HR | The headroom size, which corresponds to each ingress port priority group region. |
+| Reserved Size | The buffer of the reserved cells for the corresponding region. |
+| Shared_Max | The maximum permissible buffer for packets in a corresponding region. *ALPHA_#* is displayed when the pool is dynamic; otherwise the number of cells is displayed when the pool is static. |
+| Current Usage | Current buffer usage of corresponding region, in cells. |
+| Max Usage | The maximum watermark peak usage of the corresponding region, in cells. |
+| SP | The internal switch priority of the packet. |
 
 ## Example Configuration File
 
@@ -949,7 +1031,7 @@ The `cl-consistency-check --datapath-syntax-check` command takes the following o
 
 You can run the syntax checker when `switchd` is either running or stopped.
 
-**Example Commands**
+### Example Commands
 
 The following example command runs the syntax checker on the default `/etc/cumulus/datapath/traffic.conf` file and shows that no errors are detected:
 
